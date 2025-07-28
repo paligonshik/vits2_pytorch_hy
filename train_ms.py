@@ -269,6 +269,9 @@ def run(rank, n_gpus, hps):
 
     for epoch in range(epoch_str, hps.train.epochs + 1):
         if rank == 0:
+            print(f"====> Starting Epoch: {epoch}/{hps.train.epochs}")
+            logger.info(f"====> Starting Epoch: {epoch}/{hps.train.epochs}")
+        if rank == 0:
             train_and_evaluate(
                 rank,
                 epoch,
