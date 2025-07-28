@@ -54,8 +54,8 @@ def expand_abbreviations(text):
     return text
 
 
-def expand_numbers(text):
-    return normalize_numbers(text)
+# def expand_numbers(text):
+#     return normalize_numbers(text)
 
 
 def lowercase(text):
@@ -95,6 +95,15 @@ def english_cleaners(text):
     return phonemes
 
 
+def armenian_cleaners(text):
+    """Pipeline for English text, including abbreviation expansion."""
+    text = lowercase(text)
+    phonemes = phonemize(text, language="hy", backend="espeak", strip=True)
+    phonemes = collapse_whitespace(phonemes)
+    return phonemes
+
+
+
 def english_cleaners2(text):
     """Pipeline for English text, including abbreviation expansion. + punctuation + stress"""
     text = convert_to_ascii(text)
@@ -120,3 +129,7 @@ def english_cleaners3(text):
     phonemes = backend.phonemize([text], strip=True)[0]
     phonemes = collapse_whitespace(phonemes)
     return phonemes
+
+if __name__ == "__main__":
+    text = "Այս տեքստը կոդավորված է հայերենից։"
+    print(armenian_cleaners(text))
